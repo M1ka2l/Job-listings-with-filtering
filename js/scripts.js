@@ -5,7 +5,6 @@ const clear = document.querySelector("#clear")
 
 let tecss = []
 
-
 fetch("data.json").then((response) => {
     response.json().then((data) => {
 
@@ -98,114 +97,104 @@ fetch("data.json").then((response) => {
             
                 jobContainer.append(job)
         }
-
-
-
-        window.addEventListener("click", (click) => {
-            const targetE = click.target
-        
-            if(targetE.classList.contains("hbtsBtn")) {
-                const targetHabilits = click.target
-        
-                targetTxt = targetE.innerText
-        
-                if(tecss.indexOf(targetTxt) === -1) {
-                    tecss.push(targetTxt)
-        
-                }
-        
-                if(search.querySelector(`.${targetTxt}`) === null) {
-                    const span = document.createElement("span")
-                    span.classList.add("parentRBtn")
-                    span.classList.add(targetTxt)
-                    const p = document.createElement("p")
-                    p.classList.add("tec")
-                    p.innerText = targetTxt
-                    const button = document.createElement("button")
-                    button.classList.add("removeBtn")
-                    button.innerText = "X"
-                    
-                    span.appendChild(p)
-                    span.appendChild(button)   
-            
-                    
-                    search.appendChild(span)
-
-                    if(search.hasChildNodes() === true) {
-                        searchContainer.style.opacity = 1
-                    }
-        
-                    const jobs =  document.querySelectorAll(".job") 
-                    jobs.forEach(job => {
-        
-                        if(job.querySelector(`.${targetHabilits.innerText}`) === null) {
-                            job.style.display = "none"
-                        }
-                    });
-                }
-            }
-
-            if(targetE.innerText === "Clear") {
-                search.innerHTML = ""
-                tecss = []
-
-                console.log(tecss)
-                const tec =  document.querySelectorAll(".job") 
-                tec.forEach((searchh) => {
-
-                    if(search.hasChildNodes() === false) {
-                        searchContainer.style.opacity = 0
-                        searchh.style.display = "flex"
-                    }
-                });
-            }
-
-            if(targetE.classList.contains("removeBtn")) {
-                const parentE = targetE.closest("span")
-                const p = parentE.querySelector("p")
-                let removedBtn
-        
-                if(tecss.includes(p.innerText) === true) {
-                    removedBtn = tecss.splice(tecss.indexOf(p.innerText), 1)
-                    parentE.remove()
-                    console.log(tecss)
-                }
-        
-        
-                
-                const tec =  document.querySelectorAll(".job") 
-                tec.forEach((searchh) => {
-
-
-                        if(searchh.querySelector(`.${p.innerText}`)) {
-                            searchh.style.display = "none"
-                        }
-
-                        if(searchh.querySelector(`.${tecss[0]}`)) {
-                            searchh.style.display = "flex"
-                            
-                            console.log(searchh)
-
-                            if(tecss[1]) {
-                                if(searchh.querySelector(`.${tecss[1]}`) ) {
-                                    searchh.style.display = "flex"
-                                } else {
-                                    searchh.style.display = "none"
-                                }
-                            }
-                        }
-                        console.log(tecss)
-
-                    if(search.hasChildNodes() === false) {
-                        searchContainer.style.opacity = 0
-                        searchh.style.display = "flex"
-                    }
-                });
-            }    
-        })
     })
 })
 
+window.addEventListener("click", (click) => {
+    const targetE = click.target
+        
+    if(targetE.classList.contains("hbtsBtn")) {
+        const targetHabilits = click.target
 
+        targetTxt = targetE.innerText
+
+        if(tecss.indexOf(targetTxt) === -1) {
+            tecss.push(targetTxt)
+
+        }
+        
+    if(search.querySelector(`.${targetTxt}`) === null) {
+        const span = document.createElement("span")
+        span.classList.add("parentRBtn")
+        span.classList.add(targetTxt)
+        const p = document.createElement("p")
+        p.classList.add("tec")
+        p.innerText = targetTxt
+        const button = document.createElement("button")
+        button.classList.add("removeBtn")
+        button.innerText = "X"
+        
+        span.appendChild(p)
+        span.appendChild(button)   
+
+        
+        search.appendChild(span)
+
+        if(search.hasChildNodes() === true) {
+            searchContainer.style.opacity = 1
+        }
+
+        const jobs =  document.querySelectorAll(".job") 
+        jobs.forEach(job => {
+            if(job.querySelector(`.${targetHabilits.innerText}`) === null) {
+                job.style.display = "none"
+            }});
+        }
+    }
+
+    if(targetE.innerText === "Clear") {
+        search.innerHTML = ""
+        tecss = []
+
+        console.log(tecss)
+        const tec =  document.querySelectorAll(".job") 
+        tec.forEach((searchh) => {
+
+            if(search.hasChildNodes() === false) {
+                searchContainer.style.opacity = 0
+                searchh.style.display = "flex"
+            }
+        });
+    }
+
+    if(targetE.classList.contains("removeBtn")) {
+        const parentE = targetE.closest("span")
+        const p = parentE.querySelector("p")
+        let removedBtn
+
+        if(tecss.includes(p.innerText) === true) {
+            removedBtn = tecss.splice(tecss.indexOf(p.innerText), 1)
+            parentE.remove()
+            console.log(tecss)
+        }
+        
+        const tec =  document.querySelectorAll(".job") 
+        tec.forEach((searchh) => {
+
+            if(searchh.querySelector(`.${p.innerText}`)) {
+                searchh.style.display = "none"
+            }
+
+            if(searchh.querySelector(`.${tecss[0]}`)) {
+                searchh.style.display = "flex"
+                
+                console.log(searchh)
+
+                if(tecss[1]) {
+                    if(searchh.querySelector(`.${tecss[1]}`) ) {
+                        searchh.style.display = "flex"
+                    } else {
+                        searchh.style.display = "none"
+                    }
+                }
+            }
+
+            if(search.hasChildNodes() === false) {
+                searchContainer.style.opacity = 0
+                searchh.style.display = "flex"
+            }
+        });
+    }    
+})
 
 
